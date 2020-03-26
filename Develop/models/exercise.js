@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
+    type: {
+        type: String,
+        trim: true,
+        required: true
+    },
+
   name: {
     type: String,
     trim: true,
     required: "Name is Required"
-  },
-
-  type: {
-      type: String,
-      trim: true,
-      required: true
   },
 
   weight: {
