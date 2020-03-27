@@ -2,7 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
-const Workout = require("./models/index")
+const db = require("./models");
 
 
 const PORT = process.env.PORT || 3000;
@@ -16,8 +16,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", { useNewUrlParser: true });
-
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", { useNewUrlParser: true });
+//html routes
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/index.html"));
 });
@@ -26,9 +26,21 @@ app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/exercise.html"));
 });
 
-app.get("/api/workouts/", (req,res) => {
-  res.sendFile(path.join(__dirname + "/public/exercise.html"));
-})
+app.get("/stats", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public/stats.html"));
+});
+
+//api routes
+app.get("/api/workouts", (req, res) => {
+  db.Workout.find({})
+      .sort({ date: -1 })
+      .then(dbWorkout => {
+          res.json(dbWorkout);
+      })
+      .catch(err => {
+          res.json(err);
+      });
+});
 
 
 

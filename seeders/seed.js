@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect("mongodb://localhost/workouts", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -123,14 +123,14 @@ let workoutSeed = [
     ]
   },
   {
-    day: new Date().setDate(new Date().getDate()-1),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bench",
-        duration: 30,
-        distance: 2
-      }
+    day: new Date().setDate(new Date().getDate() - 1),
+        exercises: [
+            {
+                type: "cardio",
+                name: "Running",
+                duration: 30,
+                distance: 0
+            }
     ]
   }
 ];
