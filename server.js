@@ -26,7 +26,7 @@ app.get("/exercise", (req, res) => {
   res.sendFile(path.join(__dirname + "/public/exercise.html"));
 });
 
-app.get("/stats", function(req, res) {
+app.get("/stats", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/stats.html"));
 });
 
@@ -41,6 +41,17 @@ app.get("/api/workouts", (req, res) => {
           res.json(err);
       });
 });
+
+app.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({})
+    .limit(7)
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+  });
 
 
 
