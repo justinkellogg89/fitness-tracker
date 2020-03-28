@@ -52,6 +52,17 @@ app.get("/api/workouts/range", (req, res) => {
       res.json(err);
     });
   });
+
+app.post("api/workouts", (req, res) => {
+  console.log(req.params)
+  db.Workout.create(body)
+  .then(dbWorkout => {
+    res.json(dbWorkout);
+  })
+  .catch(err => {
+    res.json(err);
+  })
+})
   
 app.put("/api/workouts/:id", (req, res) => {
   // console.log(req.body);
@@ -61,8 +72,8 @@ app.put("/api/workouts/:id", (req, res) => {
      {$push: {exercises: req.body}}
      )
   .then(dbWorkout => {
-    console.log(dbWorkout)
-    // res.json(dbWorkout);
+    // console.log(dbWorkout)
+    res.json(dbWorkout);
   })
   .catch(err => {
     res.json(err);
